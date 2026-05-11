@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantafyre | Contact</title>
+  <meta name="description" content="Contact Quantafyre to discuss production-grade AI systems, RAG, computer vision, and full-stack AI delivery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --panel: #0F172A;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: rgba(0,0,0,0.08);
+      --soft-line: rgba(0, 0, 0, 0.10);
+      --field: rgba(0, 0, 0, 0.03);
+      --cyan: #06B6D4;
+      --shadow: 0 24px 64px rgba(0, 0, 0, 0.08);
+      --card-shadow: 0 24px 64px rgba(0, 0, 0, 0.06);
+      --impact-shadow: 0 28px 72px rgba(0, 0, 0, 0.08), 0 10px 28px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Barlow", sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 48px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+      transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
+      filter: none;
+    }
+
+    .nav-logo span {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a.is-active {
+      color: var(--text);
+      outline: none;
+    }
+
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .nav-toggle:hover,
+    .nav-toggle:focus-visible {
+      border-color: rgba(6, 182, 212, 0.4);
+      color: var(--text);
+      outline: none;
+    }
+
+    .nav-toggle-icon,
+    .nav-toggle-icon::before,
+    .nav-toggle-icon::after {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease, background 180ms ease;
+    }
+
+    .nav-toggle-icon {
+      position: relative;
+    }
+
+    .nav-toggle-icon::before,
+    .nav-toggle-icon::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .nav-toggle-icon::before {
+      top: -5px;
+    }
+
+    .nav-toggle-icon::after {
+      top: 5px;
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon {
+      background: transparent;
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon::before {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon::after {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+
+    .nav-mobile-panel {
+      display: none;
+      width: 100%;
+      padding-top: 14px;
+    }
+
+    .nav-mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-mobile-links a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .nav-mobile-links a:hover,
+    .nav-mobile-links a:focus-visible,
+    .nav-mobile-links a.is-active {
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--text);
+      outline: none;
+    }
+
+    main {
+      background: var(--bg);
+    }
+
+    .contact-hero {
+      position: relative;
+      padding: 66px 0 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .contact-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 14% 24%, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0) 36%),
+        radial-gradient(circle at 88% 14%, rgba(6, 182, 212, 0.08), rgba(6, 182, 212, 0) 32%);
+      pointer-events: none;
+    }
+
+    .contact-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .contact-copy {
+      position: absolute;
+      top: clamp(22px, 3.2vw, 44px);
+      left: clamp(28px, 4.8vw, 78px);
+      z-index: 3;
+      transform: none;
+      max-width: min(280px, calc(100vw - 96px));
+      padding-right: 24px;
+    }
+
+    .contact-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(24px, 2.8vw, 38px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      text-wrap: balance;
+      text-shadow: 0 12px 36px rgba(2, 6, 23, 0.38);
+    }
+
+    .contact-banner {
+      position: relative;
+      width: 100vw;
+      min-height: clamp(280px, 34vw, 400px);
+      margin-left: calc(50% - 50vw);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      background:
+        linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(6, 182, 212, 0.02) 36%, rgba(15, 23, 42, 0.12) 100%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .contact-banner-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 0;
+    }
+
+    .contact-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(2, 6, 23, 0.62) 0%, rgba(2, 6, 23, 0.42) 24%, rgba(2, 6, 23, 0.14) 56%, rgba(2, 6, 23, 0.04) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 34px 34px;
+      opacity: 0.3;
+    }
+
+    .contact-banner::after {
+      content: "";
+      position: absolute;
+      inset: 28px 48px;
+      border-radius: 26px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      pointer-events: none;
+    }
+
+    .impact-wrap {
+      position: relative;
+      z-index: 4;
+      margin-top: -108px;
+      padding: 0 48px;
+      background: transparent;
+    }
+
+    .impact-card {
+      max-width: 1160px;
+      margin: 0 auto;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--impact-shadow);
+      display: grid;
+      grid-template-columns: 1.15fr repeat(3, 1fr);
+      overflow: hidden;
+    }
+
+    .impact-label,
+    .impact-stat {
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 26px 20px;
+      text-align: center;
+    }
+
+    .impact-label {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .impact-stat {
+      border-left: 1px solid var(--line);
+    }
+
+    .impact-stat strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(34px, 4vw, 54px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .impact-stat span {
+      margin-top: 12px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .contact-form-section {
+      padding: 92px 48px 120px;
+      background: var(--bg);
+    }
+
+    .contact-form-shell {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .field--full {
+      grid-column: 1 / -1;
+    }
+
+    .field-label {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--field);
+      color: var(--text);
+      font: inherit;
+      padding: 16px 18px;
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(6, 182, 212, 0.48);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.12);
+    }
+
+    .form-actions {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 52px;
+      padding: 0 26px;
+      border: none;
+      border-radius: 12px;
+      background: var(--cyan);
+      color: #0B0F19;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .btn-primary:hover {
+      background: #22D3EE;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(6, 182, 212, 0.28);
+    }
+
+    .btn-primary:disabled {
+      cursor: wait;
+      opacity: 0.75;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .form-status {
+      margin-top: 18px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--cyan);
+      min-height: 24px;
+    }
+
+    .form-status.is-success {
+      color: #0f766e;
+    }
+
+    .form-status.is-error {
+      color: #b91c1c;
+    }
+
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 72px 48px 0;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 64px;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo img {
+      height: 26px;
+      filter: none;
+    }
+
+    .footer-logo span {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #0f172a;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #4B5563;
+      max-width: 260px;
+      margin-bottom: 24px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      text-decoration: none;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .footer-social-link:hover {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.3);
+      color: #06B6D4;
+    }
+
+    .footer-col-heading {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #0f172a;
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a,
+    .footer-contact-link {
+      font-size: 14px;
+      color: #4B5563;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .footer-links a:hover,
+    .footer-contact-link:hover {
+      color: #0f172a;
+    }
+
+    .footer-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-contact-name {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .footer-contact-role {
+      font-size: 13px;
+      color: #4B5563;
+      margin-bottom: 4px;
+    }
+
+    .footer-bottom {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: #475569;
+    }
+
+    @media (max-width: 1080px) {
+      .impact-card {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .impact-label,
+      .impact-stat {
+        min-height: 124px;
+      }
+
+      .impact-stat:nth-child(3) {
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+
+      .impact-stat:nth-child(4) {
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-nav,
+      .impact-wrap,
+      .contact-form-section,
+      .site-footer {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .nav-links {
+        gap: 20px;
+      }
+
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 14px 18px;
+      }
+
+      .contact-hero {
+        padding-top: 116px;
+      }
+
+      .contact-copy {
+        top: 28px;
+        left: 24px;
+        right: 24px;
+        max-width: none;
+      }
+
+      .impact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-wrap {
+        margin-top: -84px;
+      }
+
+      .impact-stat,
+      .impact-stat:nth-child(3),
+      .impact-stat:nth-child(4) {
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+
+      .contact-card {
+        padding: 28px 20px;
+        border-radius: 24px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-nav {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .impact-wrap,
+      .contact-form-section,
+      .site-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      [data-site-nav][data-mobile-nav-open="true"] .nav-mobile-panel {
+        display: block;
+      }
+
+      .impact-wrap {
+        margin-top: -64px;
+      }
+
+      .impact-label,
+      .impact-stat {
+        min-height: 108px;
+      }
+
+      .contact-hero {
+        padding-top: 88px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" data-site-nav data-mobile-nav-open="false">
+    <a href="index.html" class="nav-logo">
+      <img src="uploads/logo-flame.png" alt="Quantafyre logo">
+      <span>QUANTAFYRE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#industries">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="is-active" href="contact.html">Contact</a></li>
+    </ul>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-panel">
+      <span>Menu</span>
+      <span class="nav-toggle-icon" aria-hidden="true"></span>
+    </button>
+    <div class="nav-mobile-panel" id="mobile-nav-panel" hidden>
+      <ul class="nav-mobile-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#industries">Industries</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="is-active" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="contact-hero">
+      <div class="contact-hero-inner">
+        <div class="contact-banner" aria-label="Photo placeholder for the contact page hero card">
+          <img class="contact-banner-image" src="uploads/safety breacched at dock 4 (600 x 560 px) (2400 x 1000 px).jpg" alt="">
+          <div class="contact-copy">
+            <h1 class="contact-title">Contact</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-wrap" aria-label="Quantafyre impact">
+      <div class="impact-card">
+        <div class="impact-label">Impact</div>
+        <div class="impact-stat">
+          <strong>5+</strong>
+          <span>Years of Excellence</span>
+        </div>
+        <div class="impact-stat">
+          <strong>40+</strong>
+          <span>Projects Delivered</span>
+        </div>
+        <div class="impact-stat">
+          <strong>5+</strong>
+          <span>Countries Served</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form-section" id="contact-form">
+      <div class="contact-form-shell">
+        <div class="contact-card">
+          <form class="contact-form" id="contactRequestForm" action="/api/contact" method="post">
+            <label class="field">
+              <span class="field-label">First Name</span>
+              <input type="text" name="firstName" placeholder="First name" autocomplete="given-name" required>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Last Name</span>
+              <input type="text" name="lastName" placeholder="Last name" autocomplete="family-name">
+            </label>
+
+            <label class="field">
+              <span class="field-label">Phone</span>
+              <input type="tel" name="phone" placeholder="Phone" autocomplete="tel">
+            </label>
+
+            <label class="field">
+              <span class="field-label">Email</span>
+              <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+            </label>
+
+            <label class="field">
+              <span class="field-label">Company Name</span>
+              <input type="text" name="company" placeholder="Company name" autocomplete="organization">
+            </label>
+
+            <label class="field">
+              <span class="field-label">Service</span>
+              <select name="service">
+                <option value="">Select a service</option>
+                <option value="RAG &amp; Document Intelligence">RAG &amp; Document Intelligence</option>
+                <option value="Computer Vision &amp; Edge AI">Computer Vision &amp; Edge AI</option>
+                <option value="Intelligent Document Processing">Intelligent Document Processing</option>
+                <option value="Custom AI Projects">Custom AI Projects</option>
+                <option value="Applied AI Research">Applied AI Research</option>
+                <option value="Full-Stack AI Development">Full-Stack AI Development</option>
+              </select>
+            </label>
+
+            <label class="field field--full">
+              <span class="field-label">Message</span>
+              <textarea name="message" placeholder="Tell us a little about your use case, timeline, or what you want to build." required></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Submit Request</button>
+            </div>
+          </form>
+
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="uploads/logo-flame.png" alt="Quantafyre">
+          <span>QUANTAFYRE</span>
+        </a>
+        <p class="footer-tagline">Production-grade AI, architected and deployed for your environment.</p>
+        <div class="footer-socials">
+          <a href="https://www.linkedin.com/in/obaidnasir38" target="_blank" rel="noopener" class="footer-social-link" aria-label="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="mailto:obaidnasir01@gmail.com" class="footer-social-link" aria-label="Email">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          </a>
+          <a href="tel:+923447383838" class="footer-social-link" aria-label="Phone">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.74 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.68 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.08 5.08l1.01-1.01a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 19z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-heading">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#industries">Industries</a></li>
+          <li><a href="about.html#how-we-work">How We Work</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-heading">Contact</h4>
+        <div class="footer-contact-info">
+          <p class="footer-contact-name">Obaidullah Nasir</p>
+          <p class="footer-contact-role">CEO, Quantafyre</p>
+          <a href="tel:+923447383838" class="footer-contact-link">+92 344 738 3838</a>
+          <a href="mailto:obaidnasir01@gmail.com" class="footer-contact-link">obaidnasir01@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Quantafyre. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var nav = document.querySelector("[data-site-nav]");
+      var mobileBreakpoint = window.matchMedia("(min-width: 481px)");
+
+      if (nav) {
+        var toggle = nav.querySelector(".nav-toggle");
+        var panel = nav.querySelector(".nav-mobile-panel");
+        var mobileLinks = nav.querySelectorAll(".nav-mobile-links a");
+
+        if (toggle && panel) {
+          var setNavOpen = function(isOpen) {
+            nav.setAttribute("data-mobile-nav-open", isOpen ? "true" : "false");
+            toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            panel.hidden = !isOpen;
+          };
+
+          setNavOpen(false);
+
+          toggle.addEventListener("click", function() {
+            setNavOpen(toggle.getAttribute("aria-expanded") !== "true");
+          });
+
+          mobileLinks.forEach(function(link) {
+            link.addEventListener("click", function() {
+              setNavOpen(false);
+            });
+          });
+
+          document.addEventListener("click", function(event) {
+            if (!nav.contains(event.target)) {
+              setNavOpen(false);
+            }
+          });
+
+          document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+              setNavOpen(false);
+            }
+          });
+
+          var handleBreakpointChange = function(event) {
+            if (event.matches) {
+              setNavOpen(false);
+            }
+          };
+
+          if (mobileBreakpoint.addEventListener) {
+            mobileBreakpoint.addEventListener("change", handleBreakpointChange);
+          } else {
+            mobileBreakpoint.addListener(handleBreakpointChange);
+          }
+        }
+      }
+
+      var form = document.getElementById("contactRequestForm");
+      var status = document.getElementById("formStatus");
+      var submitButton = form ? form.querySelector('button[type="submit"]') : null;
+
+      if (!form || !status || !submitButton) return;
+
+      var defaultButtonLabel = submitButton.textContent;
+
+      var setStatus = function(message, tone) {
+        status.textContent = message;
+        status.classList.remove("is-success", "is-error");
+
+        if (tone) {
+          status.classList.add(tone);
+        }
+      };
+
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        if (submitButton.disabled) {
+          return;
+        }
+
+        var formData = new FormData(form);
+        var payload = Object.fromEntries(formData.entries());
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+        form.setAttribute("aria-busy", "true");
+        setStatus("", "");
+
+        try {
+          var response = await fetch(form.action, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          var result = await response.json().catch(function() {
+            return {};
+          });
+
+          if (!response.ok) {
+            setStatus(result.error || "We couldn't send your request right now. Please try again shortly.", "is-error");
+            return;
+          }
+
+          form.reset();
+          setStatus(result.message || "Thanks for reaching out. Your request has been sent.", "is-success");
+        } catch (error) {
+          setStatus("We couldn't send your request right now. Please try again shortly.", "is-error");
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = defaultButtonLabel;
+          form.removeAttribute("aria-busy");
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

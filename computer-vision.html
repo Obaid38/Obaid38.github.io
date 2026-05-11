@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantafyre | Computer Vision, Edge AI &amp; IoT</title>
+  <meta name="description" content="Real-time computer vision, edge AI deployment, and IoT integration for industrial and enterprise operations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --surface: #FFFFFF;
+      --surface-soft: #F8FAFC;
+      --text: #0F172A;
+      --muted: #475569;
+      --line: rgba(148, 163, 184, 0.24);
+      --line-strong: rgba(148, 163, 184, 0.34);
+      --cyan: #06B6D4;
+      --cyan-soft: #0891B2;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+      --page-gutter: clamp(20px, 4vw, 64px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; background: #FFFFFF; color: var(--text); font-family: "Barlow", sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+    .nav-shell {
+      width: 100%; padding: 16px var(--page-gutter);
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .nav-logo { display: inline-flex; align-items: center; gap: 8px; color: var(--text); }
+    .nav-logo img { height: 32px; width: auto; display: block; filter: none; }
+    .nav-logo span { font-family: "Space Grotesk", sans-serif; font-size: 17px; font-weight: 700; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-links { list-style: none; display: flex; align-items: center; justify-content: flex-end; gap: 36px; flex-wrap: wrap; }
+    .nav-links a { font-size: 14px; font-weight: 500; letter-spacing: 0.03em; color: var(--muted); transition: color 200ms ease; }
+    .nav-links a:hover, .nav-links a:focus-visible, .nav-links a.is-active { color: var(--text); outline: none; }
+
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .nav-toggle:hover,
+    .nav-toggle:focus-visible {
+      border-color: rgba(6, 182, 212, 0.4);
+      outline: none;
+    }
+
+    .nav-toggle-icon,
+    .nav-toggle-icon::before,
+    .nav-toggle-icon::after {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .nav-toggle-icon {
+      position: relative;
+    }
+
+    .nav-toggle-icon::before,
+    .nav-toggle-icon::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .nav-toggle-icon::before {
+      top: -5px;
+    }
+
+    .nav-toggle-icon::after {
+      top: 5px;
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon {
+      background: transparent;
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon::before {
+      transform: translateY(5px) rotate(45deg);
+    }
+
+    [data-site-nav][data-mobile-nav-open="true"] .nav-toggle-icon::after {
+      transform: translateY(-5px) rotate(-45deg);
+    }
+
+    .nav-mobile-panel {
+      display: none;
+      width: 100%;
+      padding-top: 14px;
+    }
+
+    .nav-mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0;
+      padding: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+    }
+
+    .nav-mobile-links a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .nav-mobile-links a:hover,
+    .nav-mobile-links a:focus-visible,
+    .nav-mobile-links a.is-active {
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--text);
+      outline: none;
+    }
+
+    /* ── Page shell ── */
+    .page-shell { width: 100%; padding: 0 var(--page-gutter) 80px; }
+
+    /* ── Hero ── */
+    .hero { padding: 28px 0 56px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 1.2fr) minmax(338px, 1.04fr);
+      gap: clamp(14px, 2vw, 32px);
+      align-items: center;
+    }
+    .hero-copy { max-width: 460px; }
+    .hero-title {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(34px, 3.6vw, 55px);
+      font-weight: 800; line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+    .hero-title-accent { color: var(--cyan); }
+    .hero-copy-text {
+      margin-top: 14px; max-width: 50ch;
+      font-size: 18px; line-height: 1.7; color: var(--muted);
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .button-primary, .button-secondary {
+      min-height: 38px; padding: 0 16px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: "Space Grotesk", sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+      cursor: pointer; border: none;
+    }
+    .button-primary { background: var(--cyan); border: 1px solid var(--cyan); color: #FFFFFF; }
+    .button-secondary { background: #FFFFFF; border: 1px solid var(--line); color: var(--text); }
+    .button-primary:hover, .button-secondary:hover { transform: translateY(-1px); }
+
+    /* ── Hero Detection Frame ── */
+    .hero-frame {
+      height: 480px; max-height: 480px; border-radius: 20px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow); position: relative;
+      overflow: hidden; padding: 0;
+    }
+    .cv-demo { display: flex; flex-direction: column; gap: 12px; height: 100%; position: relative; z-index: 1; }
+
+    .cv-topbar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cv-chip {
+      display: inline-flex; align-items: center;
+      min-height: 26px; padding: 0 10px; border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.22);
+      background: rgba(248,250,252,0.92); color: #334155;
+      font-family: "Space Grotesk", sans-serif; font-size: 11px;
+      font-weight: 500; white-space: nowrap; flex: 0 0 auto;
+    }
+    .cv-chip--active {
+      background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.24);
+      color: var(--cyan); font-weight: 700;
+      box-shadow: 0 8px 20px rgba(6,182,212,0.1);
+    }
+
+    /* Hero photo */
+    .cv-hero-photo {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* Metrics row */
+    .cv-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .cv-metric {
+      border-radius: 14px; border: 1px solid var(--line);
+      background: #FFFFFF; padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 2px;
+      box-shadow: 0 6px 16px rgba(15,23,42,0.04);
+    }
+    .cv-metric-val {
+      font-family: "Outfit", sans-serif; font-size: 22px;
+      font-weight: 800; letter-spacing: -0.04em; color: var(--text);
+    }
+    .cv-metric-label {
+      font-family: "Space Grotesk", sans-serif; font-size: 10px;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Full-bleed banner ── */
+    .full-bleed-banner {
+      width: 100vw;
+      margin-left: calc(-1 * var(--page-gutter));
+      height: 520px;
+      overflow: hidden;
+    }
+    .full-bleed-banner img {
+      width: 100%; height: 115%;
+      object-fit: cover; display: block;
+      object-position: center 46%;
+      transform-origin: center 42%;
+      will-change: transform;
+    }
+
+    /* ── Sections ── */
+    .section { padding: 48px 0; border-top: 1px solid rgba(148,163,184,0.14); }
+    .section-header { max-width: 680px; margin-bottom: 28px; }
+    .section-title {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(26px, 3.1vw, 42px); font-weight: 700;
+      line-height: 1.08; letter-spacing: -0.04em;
+    }
+    .section-copy { margin-top: 12px; max-width: 60ch; font-size: 18px; line-height: 1.75; color: var(--muted); }
+
+    /* Split visual */
+    .split-visual-wrap {
+      display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      align-items: stretch; min-height: 240px;
+      border-radius: 20px; overflow: hidden; gap: 0;
+    }
+    .split-visual-img-side { overflow: hidden; position: relative; background: #080d17; }
+    .split-visual-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .split-visual-text-side {
+      display: flex; align-items: center;
+      padding: clamp(22px,3vw,44px) clamp(18px,2.5vw,40px);
+      background: var(--surface);
+    }
+    .split-visual-text-side .section-header { margin-bottom: 0; }
+    @media (max-width: 860px) {
+      .split-visual-wrap { grid-template-columns: 1fr; }
+      .split-visual-img { min-height: 180px; max-height: 220px; }
+    }
+
+    /* ── Capability Cards ── */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .cap-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      padding: 32px 16px 28px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      background: #ffffff;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .cap-card:hover {
+      border-color: rgba(0,0,0,0.16);
+      background: #f1f5f9;
+    }
+    .cap-card-icon {
+      width: 48px;
+      height: 48px;
+      color: rgba(71,85,105,0.8);
+      flex-shrink: 0;
+    }
+    .cap-card-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+      text-align: center;
+      line-height: 1.35;
+    }
+    @media (max-width: 900px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 560px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── Industry Cards ── */
+    .ind-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .ind-card {
+      position: relative;
+      min-height: 140px;
+      background: #000000;
+      border: 1px solid rgba(31,41,55,0.85);
+      border-radius: 28px;
+      overflow: hidden;
+      isolation: isolate;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      padding: 20px;
+      box-shadow: 0 26px 52px rgba(2,6,23,0.2);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ind-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(6,182,212,0.24) 0%, rgba(6,182,212,0) 28%),
+        radial-gradient(circle at 82% 82%, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 34%),
+        linear-gradient(180deg, rgba(197,225,228,0.96) 0%, rgba(138,158,164,0.92) 44%, rgba(63,73,82,0.88) 100%);
+      pointer-events: none;
+    }
+    .ind-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(10,16,28,0.04) 0%, rgba(10,16,28,0.22) 48%, rgba(10,16,28,0.72) 100%);
+      pointer-events: none;
+    }
+    .ind-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(6,182,212,0.35);
+      box-shadow: 0 34px 68px rgba(2,6,23,0.28);
+    }
+    .ind-card-icon { position: relative; z-index: 2; font-size: 22px; margin-bottom: 8px; }
+    .ind-card-name {
+      position: relative; z-index: 2;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 13px; font-weight: 700;
+      color: #ffffff; letter-spacing: -0.01em; line-height: 1.2;
+    }
+    @media (max-width: 900px) { .ind-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 500px) { .ind-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── Proof ── */
+    .proof { padding: 52px 0 0; }
+    .proof-header { text-align: center; padding: 0 28px; margin-bottom: 36px; }
+    .proof-eyebrow { font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0f172a; margin-bottom: 12px; }
+    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .proof-card { background: var(--surface); padding: 28px 24px; border-right: 1px solid var(--line); border-top: 3px solid transparent; transition: border-top-color 0.25s ease; }
+    .proof-card:last-child { border-right: none; }
+    .proof-card:hover { border-top-color: var(--cyan); }
+    .proof-stat { font-family: "Outfit", sans-serif; font-size: clamp(29px,2.6vw,42px); font-weight: 800; letter-spacing: -0.04em; color: #0f172a; line-height: 1; margin-bottom: 8px; }
+    .proof-stat span { color: #0f172a; }
+    .proof-label { font-size: 16px; font-weight: 600; color: #0f172a; margin-bottom: 6px; line-height: 1.3; }
+    .proof-desc { font-size: 15px; line-height: 1.6; color: #0f172a; }
+    @media (max-width: 860px) { .proof-grid { grid-template-columns: repeat(2,1fr); } .proof-card:nth-child(2) { border-right: none; } }
+    @media (max-width: 480px) { .proof-grid { grid-template-columns: 1fr; } .proof-card { border-right: none; } }
+
+    /* ── CTA ── */
+    .cta { padding-top: 40px; }
+    .cta-shell {
+      padding: 28px 32px; border-radius: 20px;
+      border: 1px solid var(--line); background: #FFFFFF;
+      box-shadow: none;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .cta-title { font-family: "Outfit", sans-serif; font-size: clamp(23px,2.6vw,34px); font-weight: 700; letter-spacing: -0.04em; margin-bottom: 6px; }
+    .cta-copy { max-width: 54ch; font-size: 18px; line-height: 1.7; color: var(--muted); }
+
+    /* ── Footer ── */
+    .site-footer { background: #FFFFFF; border-top: 1px solid var(--line); padding: 40px 32px 0; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 36px; padding-bottom: 36px; }
+    .footer-logo { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .footer-logo img { height: 26px; filter: none; }
+    .footer-logo span { font-family: "Space Grotesk", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; color: var(--text); }
+    .footer-tagline, .footer-links a, .footer-contact-role, .footer-contact-link, .footer-copy { color: var(--muted); }
+    .footer-tagline { max-width: 260px; font-size: 14px; line-height: 1.7; }
+    .footer-col-heading, .footer-contact-name { font-family: "Space Grotesk", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 18px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-contact-info { display: flex; flex-direction: column; gap: 8px; }
+    .footer-contact-link { transition: color 0.2s ease; }
+    .footer-links a:hover, .footer-contact-link:hover { color: var(--text); }
+    .footer-bottom { max-width: 1080px; margin: 0 auto; padding: 24px 0; border-top: 1px solid var(--line); display: flex; justify-content: center; }
+    .footer-copy { font-size: 13px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .site-footer { padding-left: 28px; padding-right: 28px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 720px) {
+      .nav-shell { align-items: flex-start; flex-direction: column; gap: 16px; }
+      .nav-links { width: 100%; justify-content: space-between; gap: 14px 18px; }
+      .hero { padding: 20px 0 80px; }
+      .section { padding: 64px 0; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .site-footer { padding-left: 20px; padding-right: 20px; }
+      .hero-title { font-size: 32px; }
+      .cv-metrics { grid-template-columns: repeat(3,1fr); }
+      .section-copy, .cta-copy { font-size: 16px; }
+      .cta-shell { border-radius: 24px; padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-shell {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      [data-site-nav][data-mobile-nav-open="true"] .nav-mobile-panel {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav" data-site-nav data-mobile-nav-open="false">
+    <div class="nav-shell">
+      <a class="nav-logo" href="index.html">
+        <img src="uploads/logo-flame.png" alt="Quantafyre logo">
+        <span>QUANTAFYRE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#industries">Industries</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav-panel">
+        <span>Menu</span>
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+      </button>
+      <div class="nav-mobile-panel" id="mobile-nav-panel" hidden>
+        <ul class="nav-mobile-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#industries">Industries</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+
+    <!-- ── Hero ── -->
+    <section class="hero">
+      <div class="hero-grid">
+
+        <div class="hero-copy">
+          <h1 class="hero-title">See More.<br>Act <span class="hero-title-accent">Faster.</span></h1>
+          <p class="hero-copy-text">Real-time detection, automated alerts, and direct integration into your existing workflows so every camera, feed or document in your operation becomes an active contributor to quality, safety, and efficiency. Businesses that deploy our systems automate up to 80% of their manual inspection and monitoring processes from day one.</p>
+
+        </div>
+
+        <div class="hero-frame" aria-hidden="true">
+          <img src="uploads/cv_hero.jpg" alt="" class="cv-hero-photo">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Overview ── -->
+    <section class="section section--split-visual" id="overview">
+      <div class="split-visual-wrap">
+        <div class="split-visual-img-side">
+          <!-- Replace src with a relevant image when available -->
+          <img src="uploads/cv_2.png" alt="Computer Vision in operation" class="split-visual-img">
+        </div>
+        <div class="split-visual-text-side">
+          <div class="section-header">
+            <h2 class="section-title">Your operation generates more visual data than any team can monitor manually.</h2>
+            <p class="section-copy">From factory floors and logistics hubs to healthcare facilities, retail spaces, and critical infrastructure, our computer vision solutions make every workflow safer, faster, and smarter.</p>
+            <p class="section-copy" style="margin-top:16px;">If your operation depends on a human eye to catch what goes wrong, you already have a single point of failure — and we can automate it. Whether you need purpose-built edge cameras deployed on-site or want to build on infrastructure you already have, our systems adapt to your environment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Full-bleed banner ── -->
+    <div class="full-bleed-banner">
+      <img src="uploads/cv_3.jpg" alt="Forest fire detection — computer vision in action">
+    </div>
+
+    <!-- ── Capabilities ── -->
+    <section class="section" id="capabilities">
+      <div class="section-header" style="max-width:100%;text-align:center;">
+        <h2 class="section-title">What we can do.</h2>
+        <p class="section-copy" style="margin:12px auto 0;">From real-time detection to full system integration, our capabilities cover the full spectrum of computer vision deployments.</p>
+      </div>
+
+      <div class="cap-grid">
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="12" r="5"/>
+            <path d="M24 17v10M17 22l7 5 7-5M14 38l10-11 10 11"/>
+            <path d="M10 32c2-3 4-5 6-5M38 32c-2-3-4-5-6-5"/>
+          </svg>
+          <h3 class="cap-card-title">Action &amp; Activity Segmentation</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="8" width="32" height="32" rx="3"/>
+            <rect x="16" y="16" width="16" height="16" rx="1"/>
+            <path d="M8 18h4M8 30h4M36 18h4M36 30h4M18 8v4M30 8v4M18 36v4M30 36v4"/>
+          </svg>
+          <h3 class="cap-card-title">Object Detection &amp; Segmentation</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="22" r="4"/>
+            <path d="M10 22h6M32 22h6M14 14l4 4M30 14l-4 4M14 30l4-4M30 30l-4-4"/>
+            <ellipse cx="24" cy="22" rx="14" ry="6"/>
+            <path d="M18 34l-4 8M30 34l4 8M16 42h4M28 42h4"/>
+          </svg>
+          <h3 class="cap-card-title">Drone &amp; UAV Detection</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="24" cy="24" rx="10" ry="7"/>
+            <circle cx="24" cy="24" r="3"/>
+            <path d="M6 24c0-10 8-18 18-18M42 24c0 10-8 18-18 18"/>
+            <path d="M10 14c3-4 8-7 14-7M38 34c-3 4-8 7-14 7"/>
+            <circle cx="36" cy="12" r="3" fill="currentColor" stroke="none"/>
+            <path d="M36 12l-8 12"/>
+          </svg>
+          <h3 class="cap-card-title">Motion Detection &amp; Tracking</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="6" width="28" height="36" rx="3"/>
+            <path d="M16 16h16M16 22h16M16 28h10"/>
+            <path d="M30 30l8 8M34 34l4-4"/>
+            <circle cx="34" cy="34" r="5"/>
+          </svg>
+          <h3 class="cap-card-title">Document &amp; OCR Analysis</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="12" width="28" height="20" rx="3"/>
+            <circle cx="20" cy="22" r="5"/>
+            <path d="M34 18h4a2 2 0 012 2v8a2 2 0 01-2 2h-4"/>
+            <path d="M15 32v6M25 32v6M10 38h20"/>
+          </svg>
+          <h3 class="cap-card-title">On-site Camera Integration</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 6c-6 0-10 4-10 9 0 2 1 4 2 6l8 12 8-12c1-2 2-4 2-6 0-5-4-9-10-9z"/>
+            <circle cx="24" cy="15" r="3"/>
+            <path d="M10 42h28M16 36h16"/>
+            <path d="M20 36l-4 6M28 36l4 6"/>
+          </svg>
+          <h3 class="cap-card-title">PPE &amp; Safety Compliance</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 8l3 8h9l-7 6 3 9-8-5-8 5 3-9-7-6h9z"/>
+            <path d="M24 32v8M18 42h12"/>
+            <circle cx="24" cy="20" r="2" fill="currentColor" stroke="none"/>
+          </svg>
+          <h3 class="cap-card-title">Anomaly Detection &amp; Alerting</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="14" width="22" height="20" rx="3"/>
+            <path d="M30 20h6a2 2 0 012 2v8a2 2 0 01-2 2h-6"/>
+            <circle cx="19" cy="24" r="4"/>
+            <path d="M6 24H4M8 17l-2-2M8 31l-2 2"/>
+            <path d="M36 18v-4l4-4M36 30v4l4 4"/>
+          </svg>
+          <h3 class="cap-card-title">Edge Inference</h3>
+        </div>
+
+        <div class="cap-card">
+          <svg class="cap-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="5"/>
+            <circle cx="8" cy="16" r="3"/>
+            <circle cx="8" cy="32" r="3"/>
+            <circle cx="40" cy="16" r="3"/>
+            <circle cx="40" cy="32" r="3"/>
+            <circle cx="24" cy="6" r="3"/>
+            <path d="M11 17l10 6M11 31l10-6M37 17l-10 6M37 31l-10-6M24 9v10"/>
+          </svg>
+          <h3 class="cap-card-title">IoT &amp; Smart Automations</h3>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ── CTA ── -->
+    <section class="cta">
+      <div class="cta-shell">
+        <div>
+          <h2 class="cta-title">Ready to put your cameras to work?</h2>
+          <p class="cta-copy">Tell us what you're monitoring and we'll show you what's possible — most deployments are live within weeks, not months.</p>
+        </div>
+        <a class="button-primary" href="contact.html">Talk to us &rarr;</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="uploads/logo-flame.png" alt="Quantafyre">
+          <span>QUANTAFYRE</span>
+        </a>
+        <p class="footer-tagline">Production-grade AI, architected and deployed for your environment.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-heading">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#industries">Industries</a></li>
+          <li><a href="about.html#how-we-work">How We Work</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-heading">Contact</h4>
+        <div class="footer-contact-info">
+          <p class="footer-contact-name">Obaidullah Nasir</p>
+          <p class="footer-contact-role">CEO, Quantafyre</p>
+          <a href="tel:+923447383838" class="footer-contact-link">+92 344 738 3838</a>
+          <a href="mailto:obaidnasir01@gmail.com" class="footer-contact-link">obaidnasir01@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Quantafyre. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var nav = document.querySelector("[data-site-nav]");
+      var mobileBreakpoint = window.matchMedia("(min-width: 481px)");
+      var banner = document.querySelector('.full-bleed-banner');
+      var img = banner ? banner.querySelector('img') : null;
+      if (nav) {
+        var toggle = nav.querySelector(".nav-toggle");
+        var panel = nav.querySelector(".nav-mobile-panel");
+        var mobileLinks = nav.querySelectorAll(".nav-mobile-links a");
+
+        if (toggle && panel) {
+          var setNavOpen = function(isOpen) {
+            nav.setAttribute("data-mobile-nav-open", isOpen ? "true" : "false");
+            toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            panel.hidden = !isOpen;
+          };
+
+          setNavOpen(false);
+
+          toggle.addEventListener("click", function() {
+            setNavOpen(toggle.getAttribute("aria-expanded") !== "true");
+          });
+
+          mobileLinks.forEach(function(link) {
+            link.addEventListener("click", function() {
+              setNavOpen(false);
+            });
+          });
+
+          document.addEventListener("click", function(event) {
+            if (!nav.contains(event.target)) {
+              setNavOpen(false);
+            }
+          });
+
+          document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+              setNavOpen(false);
+            }
+          });
+
+          var handleBreakpointChange = function(event) {
+            if (event.matches) {
+              setNavOpen(false);
+            }
+          };
+
+          if (mobileBreakpoint.addEventListener) {
+            mobileBreakpoint.addEventListener("change", handleBreakpointChange);
+          } else {
+            mobileBreakpoint.addListener(handleBreakpointChange);
+          }
+        }
+      }
+
+      if (!banner || !img) return;
+      function update() {
+        var rect = banner.getBoundingClientRect();
+        var wh = window.innerHeight;
+        var progress = Math.max(0, Math.min(1, (wh - rect.top) / (wh * 0.9)));
+        var depth = 1 - progress;
+        var tilt = 16 * depth;
+        var scale = 1 + 0.12 * depth;
+        var lift = -28 * depth;
+        img.style.transform = 'perspective(2200px) translateY(' + lift + 'px) rotateX(' + tilt + 'deg) scale(' + scale + ')';
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    }());
+
+  </script>
+
+</body>
+</html>

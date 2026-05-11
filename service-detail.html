@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantafyre Capability</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0F19;
+      --panel: #101725;
+      --panel-soft: #0F172A;
+      --text: #ffffff;
+      --muted: #9CA3AF;
+      --line: #1F2937;
+      --accent: #06B6D4;
+      --accent-soft: #22D3EE;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(6,182,212,0.12) 0%, rgba(11,15,25,0) 36%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .detail-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 40px;
+      background: rgba(11,15,25,0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(31,41,55,0.8);
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-logo img {
+      height: 30px;
+      width: auto;
+      filter: none;
+    }
+
+    .detail-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      border: 1px solid rgba(6,182,212,.18);
+      background: rgba(6,182,212,.08);
+      color: var(--text);
+      border-radius: 10px;
+      min-height: 40px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .back-link:hover {
+      background: rgba(6,182,212,.14);
+      border-color: rgba(6,182,212,.34);
+      color: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .detail-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 24px 88px;
+    }
+
+    .detail-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .detail-eyebrow {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(6,182,212,.08);
+      border: 1px solid rgba(6,182,212,.18);
+      color: var(--accent-soft);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .detail-eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .detail-hero-main {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .detail-icon {
+      width: 84px;
+      height: 84px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(6,182,212,.16) 0%, rgba(15,23,42,.88) 100%);
+      border: 1px solid rgba(6,182,212,.24);
+      color: var(--accent);
+      box-shadow: 0 18px 34px rgba(2,6,23,.25);
+    }
+
+    .detail-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .detail-intro {
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .detail-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .detail-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,.85);
+      background: rgba(255,255,255,.03);
+      color: #CBD5E1;
+      font-family: 'Barlow', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .detail-panel {
+      background: linear-gradient(180deg, rgba(16,23,37,.96) 0%, rgba(10,16,28,.95) 100%);
+      border: 1px solid rgba(31,41,55,.92);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 18px 36px rgba(2,6,23,.18);
+    }
+
+    .detail-panel-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .detail-panel-copy {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .detail-card-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .detail-list-card {
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(55,65,81,.72);
+      background: rgba(255,255,255,.03);
+      color: #E2E8F0;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .detail-visual-stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    .detail-placeholder {
+      min-height: 220px;
+      border-radius: 20px;
+      border: 1px solid rgba(55,65,81,.75);
+      background:
+        linear-gradient(135deg, rgba(6,182,212,.14) 0%, rgba(15,23,42,.86) 55%, rgba(34,211,238,.08) 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .detail-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.06);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .detail-placeholder-label,
+    .detail-placeholder-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .detail-placeholder-label {
+      display: inline-flex;
+      align-self: flex-start;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(7,12,22,.72);
+      border: 1px solid rgba(6,182,212,.24);
+      color: var(--accent-soft);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      align-items: center;
+    }
+
+    .detail-placeholder-copy {
+      max-width: 440px;
+      color: #D7F9FF;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .detail-cta {
+      margin-top: 24px;
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(31,41,55,.92);
+      background: linear-gradient(180deg, rgba(12,19,32,.96) 0%, rgba(8,13,24,.95) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .detail-cta-copy {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #0B0F19;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: var(--accent-soft);
+      box-shadow: 0 10px 24px rgba(6,182,212,.22);
+    }
+
+    @media (max-width: 860px) {
+      .detail-nav {
+        padding: 18px 24px;
+      }
+
+      .detail-hero-main {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .detail-nav {
+        flex-wrap: wrap;
+      }
+
+      .detail-shell {
+        padding: 40px 16px 72px;
+      }
+
+      .detail-panel,
+      .detail-cta {
+        padding: 22px;
+      }
+
+      .detail-title {
+        font-size: 34px;
+      }
+
+      .detail-intro,
+      .detail-cta-copy {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="detail-nav">
+    <a href="index.html" class="nav-logo">
+      <img src="uploads/logo-flame.png" alt="Quantafyre logo">
+      <span>QUANTAFYRE</span>
+    </a>
+    <div class="detail-nav-actions">
+      <a href="index.html#services" class="back-link">&larr; Back to What We Build</a>
+    </div>
+  </nav>
+
+  <main class="detail-shell">
+    <section class="detail-hero">
+      <div class="detail-eyebrow" id="detailEyebrow">
+        <span class="detail-eyebrow-dot"></span>
+        Capability
+      </div>
+
+      <div class="detail-hero-main">
+        <div class="detail-icon" id="detailIcon" aria-hidden="true"></div>
+        <div>
+          <h1 class="detail-title" id="detailTitle">Capability</h1>
+          <p class="detail-intro" id="detailIntro"></p>
+        </div>
+      </div>
+
+      <div class="detail-chip-row" id="detailChips"></div>
+    </section>
+
+    <section class="detail-grid">
+      <article class="detail-panel">
+        <h2 class="detail-panel-title">What this capability covers</h2>
+        <p class="detail-panel-copy" id="detailSummary"></p>
+        <div class="detail-card-list" id="detailOutcomes"></div>
+      </article>
+
+      <article class="detail-panel">
+        <h2 class="detail-panel-title">Visual placeholders for next pass</h2>
+        <p class="detail-panel-copy">This page is intentionally simple for now, but the two modules below are ready for the richer imagery and interactions you want to add later.</p>
+        <div class="detail-visual-stack">
+          <div class="detail-placeholder">
+            <span class="detail-placeholder-label">Future image slot</span>
+            <p class="detail-placeholder-copy" id="detailImageSlot"></p>
+          </div>
+          <div class="detail-placeholder">
+            <span class="detail-placeholder-label">Future animation slot</span>
+            <p class="detail-placeholder-copy" id="detailMotionSlot"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="detail-grid">
+      <article class="detail-panel">
+        <h2 class="detail-panel-title">Typical use cases</h2>
+        <p class="detail-panel-copy">A few of the practical situations where teams usually ask us to deploy this capability.</p>
+        <div class="detail-card-list" id="detailUseCases"></div>
+      </article>
+
+      <article class="detail-panel">
+        <h2 class="detail-panel-title">What we can build into this page next</h2>
+        <p class="detail-panel-copy">Once you share the visuals, we can evolve this from a clean placeholder into a more persuasive experience.</p>
+        <div class="detail-card-list" id="detailNextSteps"></div>
+      </article>
+    </section>
+
+    <section class="detail-cta">
+      <p class="detail-cta-copy">This structure is now in place so every landing-page card has a working destination. Once you send the background images, I can wire them into both the landing cards and the matching detail panels.</p>
+      <a href="contact.html" class="btn-primary">Start a Project &rarr;</a>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      var services = {
+        rag: {
+          number: '01',
+          accent: '#06B6D4',
+          accentSoft: '#22D3EE',
+          title: 'RAG & Document Intelligence',
+          intro: 'Enterprise retrieval and grounded answering across your documents, systems, and internal knowledge without sending teams on a hunt through disconnected tools.',
+          summary: 'This capability is ideal when one business question depends on data scattered across PDFs, SQL, ERP, SAP, SharePoint, or internal notes. We shape the retrieval layer, grounding strategy, and deployment model around the way your organization already works.',
+          chips: ['RAG', 'Enterprise Search', 'Text-to-SQL', 'Air-gapped'],
+          outcomes: [
+            'Unified question-answering across structured and unstructured sources.',
+            'Grounded responses with source tracing for auditability and confidence.',
+            'Flexible deployment from cloud environments to isolated enterprise infrastructure.'
+          ],
+          useCases: [
+            'Internal knowledge assistants for operations, legal, and finance teams.',
+            'Executive reporting assistants that combine ERP milestones with document context.',
+            'Search layers for large archives, manuals, contracts, or technical records.'
+          ],
+          nextSteps: [
+            'Add a search interface screenshot or document workspace background image.',
+            'Add a retrieval workflow animation that shows query, source ranking, and final answer.',
+            'Add case-study metrics or source-system badges for social proof.'
+          ],
+          imageSlot: 'Reserved for a knowledge workspace, retrieval dashboard, or document search background.',
+          motionSlot: 'Reserved for a staged walkthrough showing query, retrieval, grounding, and insight delivery.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><circle cx="12" cy="12" r="7.5" stroke="currentColor" stroke-width="1.8"/><line x1="17.5" y1="17.5" x2="24" y2="24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 10V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+        },
+        vision: {
+          number: '02',
+          accent: '#8B5CF6',
+          accentSoft: '#A78BFA',
+          title: 'Computer Vision & Edge AI',
+          intro: 'Real-time visual intelligence for environments where speed, reliability, and on-site deployment matter more than generic demo accuracy.',
+          summary: 'We build systems for defect detection, quality assurance, safety monitoring, action recognition, and visual analytics that can run where your cameras and operators actually live.',
+          chips: ['Vision', 'Edge', 'Video', 'Quality Assurance'],
+          outcomes: [
+            'Low-latency inference pipelines tuned for practical operating conditions.',
+            'Alerts, detections, and action triggers that integrate into operations workflows.',
+            'Deployment patterns that fit factory, logistics, security, or field environments.'
+          ],
+          useCases: [
+            'PPE and safety monitoring on factory floors or loading docks.',
+            'Defect detection for manufacturing or inspection lines.',
+            'Motion and action analysis for operational visibility and process improvement.'
+          ],
+          nextSteps: [
+            'Add a production image or annotated camera frame as the page hero visual.',
+            'Add a short scanline or detection-box animation for the visual panel.',
+            'Add benchmark cards for latency, precision, or hardware footprint.'
+          ],
+          imageSlot: 'Reserved for a floor camera still, annotated inspection frame, or edge-device deployment photo.',
+          motionSlot: 'Reserved for a lightweight animation showing detections, alerts, or action segmentation.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><ellipse cx="14" cy="14" rx="12" ry="7" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="14" r="3.5" stroke="currentColor" stroke-width="1.8"/><circle cx="14" cy="14" r="1.2" fill="currentColor"/></svg>'
+        },
+        idp: {
+          number: '03',
+          accent: '#10B981',
+          accentSoft: '#34D399',
+          title: 'Intelligent Document Processing',
+          intro: 'Structured extraction for messy, scanned, handwritten, or tampered documents where ordinary OCR pipelines start to fall apart.',
+          summary: 'This capability fits teams that need reliable extraction and review workflows for high-value documents. We can combine OCR, VLM reasoning, validation rules, and human review handoffs into one operational flow.',
+          chips: ['OCR', 'VLM', 'Extraction', 'Review'],
+          outcomes: [
+            'Higher-quality extraction from difficult source material.',
+            'Field-level validation and review flows for operational confidence.',
+            'Pipelines that can be adapted for invoices, forms, IDs, manifests, and records.'
+          ],
+          useCases: [
+            'Invoice and procurement extraction for finance and operations teams.',
+            'Identity or compliance document review in regulated workflows.',
+            'Data capture from scanned archives, forms, or handwritten submissions.'
+          ],
+          nextSteps: [
+            'Add a real scanned-document image or processed extraction screen.',
+            'Add a scanline or field-highlighting animation to show the extraction flow.',
+            'Add before-and-after examples for hard documents your users care about.'
+          ],
+          imageSlot: 'Reserved for an invoice, form, or review interface that represents the source material.',
+          motionSlot: 'Reserved for a field extraction animation that reveals how key values are captured.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><rect x="5" y="3.5" width="18" height="21" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M9 9H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 13H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 17H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+        },
+        'full-stack': {
+          number: '06',
+          accent: '#F97316',
+          accentSoft: '#FBBF24',
+          title: 'Full-Stack AI Development',
+          intro: 'Complete AI product delivery from architecture and APIs to workflow orchestration, interfaces, and production deployment.',
+          summary: 'This is the right fit when the value is not just the model, but the whole system around it. We design the application layer, operational workflows, integration points, and deployment surface so the AI is usable in production.',
+          chips: ['FastAPI', 'APIs', 'Integrations', 'Deployment'],
+          outcomes: [
+            'A production-ready application layer around your models and business logic.',
+            'Async processing and workflow orchestration for real operational throughput.',
+            'Clear ownership from backend and integrations through deployment and handoff.'
+          ],
+          useCases: [
+            'Internal AI tools that need secure APIs and admin workflows.',
+            'Client-facing AI products with usage controls and multi-tenant behavior.',
+            'Operational systems that connect models to real workflows and business data.'
+          ],
+          nextSteps: [
+            'Add product UI screenshots or system diagrams into the visual slot.',
+            'Add an API-call or workflow progression animation for the motion slot.',
+            'Add delivery milestones, stack badges, or architecture notes.'
+          ],
+          imageSlot: 'Reserved for a product interface, architecture view, or deployment dashboard.',
+          motionSlot: 'Reserved for an API-to-workflow animation that shows how requests become outcomes.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><path d="M4 20L10 12L15 16L20 8H24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 8H24V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        },
+        'custom-ai': {
+          number: '04',
+          accent: '#3B82F6',
+          accentSoft: '#60A5FA',
+          title: 'Custom AI Projects',
+          intro: 'Bespoke AI systems designed around your workflow, data, and constraints rather than squeezing your problem into a one-size-fits-all template.',
+          summary: 'Some teams do not need an off-the-shelf category. They need a system designed around the actual operational shape of their work. This capability page is a placeholder for those more tailored engagements.',
+          chips: ['Discovery', 'Prototype', 'Ship', 'Ownership'],
+          outcomes: [
+            'A scoped solution aligned to your process instead of a generic wrapper.',
+            'Rapid prototype-to-production movement with shared decision points.',
+            'A flexible build path for workflows that do not match standard product categories.'
+          ],
+          useCases: [
+            'Internal tools with unique document, camera, or workflow requirements.',
+            'Greenfield AI initiatives that need help defining the right product shape.',
+            'Cross-functional systems that blend retrieval, reasoning, and operations logic.'
+          ],
+          nextSteps: [
+            'Add a custom workflow diagram or your own background visual here.',
+            'Add a story-driven animation that explains the bespoke flow.',
+            'Add a discovery-to-deployment timeline or milestone callouts.'
+          ],
+          imageSlot: 'Reserved for a custom workflow diagram, domain-specific visual, or branded concept image.',
+          motionSlot: 'Reserved for a tailored interaction sequence that explains the system logic clearly.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M17 10L25 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 14L25 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="22" cy="21" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M22 19.5V22.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M20.5 21H23.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>'
+        },
+        research: {
+          number: '05',
+          accent: '#EC4899',
+          accentSoft: '#F472B6',
+          title: 'Applied AI Research',
+          intro: 'Research work that moves beyond slideware into deployable systems, benchmarks, and domain-specific improvement loops.',
+          summary: 'This capability is for teams that need experimentation with a practical outcome. We can explore fine-tuning strategies, synthetic data, evaluation design, and architecture choices while keeping the final deployment path in view.',
+          chips: ['R&D', 'Fine-tuning', 'Benchmarks', 'Deep Tech'],
+          outcomes: [
+            'Structured experimentation with measurable business or technical targets.',
+            'Benchmarking and evaluation frameworks that support real decisions.',
+            'A bridge from model exploration into implementation and rollout.'
+          ],
+          useCases: [
+            'Model adaptation for specialized domains with limited direct data.',
+            'Synthetic data pipelines to improve robustness or coverage.',
+            'Architecture exploration when baseline systems do not meet performance targets.'
+          ],
+          nextSteps: [
+            'Add charts, benchmark visuals, or research imagery to the hero area.',
+            'Add a graph or metric animation to show uplift over baselines.',
+            'Add experiment summaries or evaluation snapshots for proof.'
+          ],
+          imageSlot: 'Reserved for benchmark imagery, charts, or research workflow visuals.',
+          motionSlot: 'Reserved for a compact animation that shows progression from baseline to improved results.',
+          icon: '<svg width="34" height="34" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="11" r="5.5" stroke="currentColor" stroke-width="1.8"/><path d="M14 16.5V22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 22H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 9.5V12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14 8.5V13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M17 9.5V12.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
+        }
+      };
+
+      function renderList(targetId, items) {
+        var target = document.getElementById(targetId);
+        if (!target) return;
+        target.innerHTML = '';
+        items.forEach(function(item) {
+          var card = document.createElement('div');
+          card.className = 'detail-list-card';
+          card.textContent = item;
+          target.appendChild(card);
+        });
+      }
+
+      function renderChips(items) {
+        var target = document.getElementById('detailChips');
+        if (!target) return;
+        target.innerHTML = '';
+        items.forEach(function(item) {
+          var chip = document.createElement('span');
+          chip.className = 'detail-chip';
+          chip.textContent = item;
+          target.appendChild(chip);
+        });
+      }
+
+      var params = new URLSearchParams(window.location.search);
+      var key = params.get('service') || 'rag';
+      var service = services[key] || services.rag;
+
+      document.documentElement.style.setProperty('--accent', service.accent);
+      document.documentElement.style.setProperty('--accent-soft', service.accentSoft);
+
+      document.title = service.title + ' | Quantafyre';
+      document.getElementById('detailEyebrow').innerHTML = '<span class="detail-eyebrow-dot"></span>Capability ' + service.number;
+      document.getElementById('detailIcon').innerHTML = service.icon;
+      document.getElementById('detailTitle').textContent = service.title;
+      document.getElementById('detailIntro').textContent = service.intro;
+      document.getElementById('detailSummary').textContent = service.summary;
+      document.getElementById('detailImageSlot').textContent = service.imageSlot;
+      document.getElementById('detailMotionSlot').textContent = service.motionSlot;
+
+      renderChips(service.chips);
+      renderList('detailOutcomes', service.outcomes);
+      renderList('detailUseCases', service.useCases);
+      renderList('detailNextSteps', service.nextSteps);
+    })();
+  </script>
+</body>
+</html>
